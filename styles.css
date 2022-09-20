@@ -1,0 +1,10 @@
+html {
+    background-color: black;
+    color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
