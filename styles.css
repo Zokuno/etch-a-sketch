@@ -3,8 +3,20 @@ html {
     color: white;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .title {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: blanchedalmond;
 }
