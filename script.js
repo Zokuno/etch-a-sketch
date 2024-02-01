@@ -29,15 +29,14 @@ function genDivs(v) {
             cell.style.height = "0.3em";
             cell.style.width = "0.3em";
             row.appendChild(cell); 
+            cell.addEventListener("mouseover", () => {
+                cell.style.backgroundColor = "black";}
+            );
         } 
         e.appendChild(row); 
     } 
     // document.querySelector("code").innerText = e.innerHTML;
 }
 
-genDivs(100);
+genDivs(50);
 
-let sketch = document.querySelector(".gridsquare");
-sketch.addEventListener("mouseover", () => {
-    sketch.style.backgroundColor = "black";}
-);
