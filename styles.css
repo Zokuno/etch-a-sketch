@@ -17,6 +17,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
-    background-color: blanchedalmond;
+    border: solid;
+    border-color: red;
+    min-height: 80vh;
+    /* max-height: 500px; */
+    background-color: rgb(152, 97, 15);
 }
