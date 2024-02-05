@@ -1,20 +1,6 @@
-// for (let i = 0; i < 10; i++) {
-//     for (let j = 0; j < 10; j++) {
-//         let div = document.createElement("div");
-//         div.style.width = "25px";
-//         div.style.height = "25px";
-//         div.style.background = "red";
-//         div.style.border = "solid"
-//         document.querySelector(".grid-container").appendChild(div);
-//     }
-//     let jump = document.createElement("br");
-//     document.querySelector(".grid-container").appendChild(jump);
-// }
-
-
-
-function genDivs(v) { 
+ function genDivs(v) { 
     let e = document.querySelector(".grid-container"); // whatever you want to append the rows to: 
+    let resetBtn = document.querySelector(".reset");
     for (let i = 0; i < v; i++) { 
          let row = document.createElement("div"); 
          row.className = "row";
@@ -32,11 +18,17 @@ function genDivs(v) {
             cell.addEventListener("mouseover", () => {
                 cell.style.backgroundColor = "black";}
             );
+            resetBtn.addEventListener("click", () => {
+                cell.style.backgroundColor = "beige";
+            });
         } 
         e.appendChild(row); 
     } 
     // document.querySelector("code").innerText = e.innerHTML;
 }
+
+// let resetBtn = document.querySelector(".reset");
+
 
 genDivs(50);
 

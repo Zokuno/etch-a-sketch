@@ -13,6 +13,12 @@ body {
     align-items: center;
 }
 
+.reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .grid-container {
     display: flex;
     justify-content: center;
