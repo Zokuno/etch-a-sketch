@@ -16,25 +16,32 @@
     <main>
         <div class="tools">
             <div class="color-pickers">
-                <div class="color-option">
-                    <input type="color" value="#000000" id="pen-color" class="color-preview">
-                    <label for="pen-color">Pen Color</label>
-                </div>
+                <div class="tool-heading">Color Options</div>
+                <div class="colors">
+                    <div class="color-option">
+                        <input type="color" value="#000000" id="pen-color" class="color-preview">
+                        <label for="pen-color">Pen Color</label>
+                    </div>
 
-                <div class="color-option">
-                    <input type="color" value="#F5F5DC" id="grid-background-color" class="color-preview">
-                    <label for="grid-background-color">Background Color</label>
+                    <div class="color-option">
+                        <input type="color" value="#F5F5DC" id="fill-grid" class="color-preview">
+                        <label for="fill-grid">Fill Grid</label>
+                    </div>
+                </div>
+                <div class="color-reset">
+                    <button class="clear-button">Clear Sketch</button>
                 </div>
             </div>
-            
+
             <div class="buttons">
-                <button class="normal-button">Normal Mode</button>
+                <div class="tool-heading">Mode</div>
                 <button class="rainbow-button">Rainbow Mode</button>
                 <button class="eraser-button">Eraser</button>
-                <button class="clear-button">Clear</button>
+                <button class="normal-button">Reset</button>
             </div>
 
             <div class="slidecontainer">
+                <div class="tool-heading">Sketch Size</div>
                 <div>This will erase the sketch!</div>
                 <input type="range" min="1" max="64" value="32" class="slider" id="myRange">
                 <span id="gridSize"></span>

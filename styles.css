@@ -43,22 +43,28 @@ main {
     box-shadow: rgb(250, 52, 52) 5px 5px 5px;
 }
 
-.color-preview {
-  display: flex;
-  cursor: pointer;
-  min-width: 50px;
-  min-height: 50px;
-}
-
 .color-pickers {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex: 1;
-  justify-content: space-evenly;
-  align-items: space-between;
   width: 100%;
   border-bottom: solid;
   border-color: red;
+}
+
+.colors {
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.tool-heading {
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: large;
+  color: orangered;
 }
 
 .color-option {
@@ -68,9 +74,25 @@ main {
   align-items: center;
 }
 
+.color-preview {
+  display: flex;
+  cursor: pointer;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.color-reset {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
 .buttons {
   display: flex;
-  flex: 2;
+  flex: 1;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -110,7 +132,12 @@ footer {
 
 /* Slider is inside .tools */
 .slidecontainer {
-    width: 100%; /* Width of the outside container */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
   }
   
   /* The slider itself */
