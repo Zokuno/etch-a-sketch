@@ -2,27 +2,29 @@
 let gridCntr = document.querySelector(".grid-container");
 let gridSquare = document.querySelector(".gridsquare");
 let penColor = document.querySelector("#pen-color");
+let penDefault = document.querySelector(".pen-default");
 let fillGrid = document.querySelector("#fill-grid");
-let normalBtn = document.querySelector(".normal-button");
-let rainbowBtn = document.querySelector(".rainbow-button");
+let normalBtn = document.querySelector(".reset-button");
+let rainbowBtn = document.querySelector("#rainbow-button");
+let opacityBtn = document.querySelector("#opacity-button");
 let eraserBtn = document.querySelector(".eraser-button");
 let clearBtn = document.querySelector(".clear-button");
-let slider = document.getElementById("myRange");
-let output = document.getElementById("gridSize");
+let gridSizeSlider = document.getElementById("myRange");
+let gridSize = document.getElementById("gridSize");
 
 
-output.innerHTML = `${slider.value} x ${slider.value}`; // Display the default slider value
+gridSize.innerHTML = `${gridSizeSlider.value} x ${gridSizeSlider.value} Grid`; // Display the default slider value
 
 // Updates the current slider value each time you drag the slider handle
-slider.oninput = function () {
+gridSizeSlider.oninput = function () {
     gridCntr.innerHTML = "";
-    output.innerHTML = `${this.value} x ${this.value}`;
+    gridSize.innerHTML = `${this.value} x ${this.value} Grid`;
     genDivs();
 };
 
 // Generates grid of divs dependent on slider value
 function genDivs() {
-    let v = parseInt(output.innerHTML);
+    let v = parseInt(gridSize.innerHTML);
 
     gridCntr.innerHTML = "";
 
@@ -53,6 +55,8 @@ function handleMouseOver() {
       if (penColor.classList.contains("active")) {
         this.style.backgroundColor = penColor.value;
     } else if (rainbowBtn.classList.contains("active")) {
+        this.style.backgroundColor = rainbowMode();
+    } else if (opacityBtn.classList.contains("active")) {
         this.style.backgroundColor = "green";
     } else if (eraserBtn.classList.contains("active")) {
         this.style.backgroundColor = fillGrid.value;
@@ -61,6 +65,11 @@ function handleMouseOver() {
     } else {
         this.style.backgroundColor = "black";
     }    
+};
+
+// Returns random color using hexidecimals
+function rainbowMode() {
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
 };
 
 // Sets background color for all divs in grid
@@ -75,32 +84,36 @@ fillGrid.addEventListener("input", () => {
 penColor.addEventListener("click", () => {
     penColor.classList.add("active");
     fillGrid.classList.remove("active");
-    normalBtn.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    opacityBtn.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
 });
 
-normalBtn.addEventListener("click", () => {
-    normalBtn.classList.add("active");
-    penColor.classList.remove("active");
+penDefault.addEventListener("click", () => {
+    penColor.classList.add("active");
     fillGrid.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    opacityBtn.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
-    fillGrid.value = "#F5F5DC";
     penColor.value = "#000000";
-    let cells = document.querySelectorAll(".gridsquare");
-        cells.forEach((cell) => {
-            cell.style.backgroundColor = fillGrid.value;
-        });
 });
 
 rainbowBtn.addEventListener("click", () => {
     rainbowBtn.classList.add("active");
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
-    normalBtn.classList.remove("active");
+    opacityBtn.classList.remove("active");
+    eraserBtn.classList.remove("active");
+    clearBtn.classList.remove("active");
+});
+
+opacityBtn.addEventListener("click", () => {
+    opacityBtn.classList.add("active");
+    rainbowBtn.classList.remove("active");
+    penColor.classList.remove("active");
+    fillGrid.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
 });
@@ -109,8 +122,8 @@ eraserBtn.addEventListener("click", () => {
     eraserBtn.classList.add("active");
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
-    normalBtn.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    opacityBtn.classList.remove("active");
     clearBtn.classList.remove("active");
 });
 
@@ -118,10 +131,9 @@ clearBtn.addEventListener("click", () => {
     clearBtn.classList.add("active");
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
-    normalBtn.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    opacityBtn.classList.remove("active");
     eraserBtn.classList.remove("active");
-
     // Loops through all cells and set background color to fillGrid value
     let cells = document.querySelectorAll(".gridsquare");
     cells.forEach((cell) => {

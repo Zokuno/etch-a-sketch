@@ -19,33 +19,43 @@
                 <div class="tool-heading">Color Options</div>
                 <div class="colors">
                     <div class="color-option">
-                        <input type="color" value="#000000" id="pen-color" class="color-preview">
                         <label for="pen-color">Pen Color</label>
+                        <input type="color" value="#000000" id="pen-color" class="color-preview">
+                        <button class="pen-default">Default</button>
                     </div>
 
                     <div class="color-option">
-                        <input type="color" value="#F5F5DC" id="fill-grid" class="color-preview">
                         <label for="fill-grid">Fill Grid</label>
+                        <input type="color" value="#F5F5DC" id="fill-grid" class="color-preview">
                     </div>
                 </div>
                 <div class="color-reset">
+                    <button class="eraser-button">Eraser</button>
                     <button class="clear-button">Clear Sketch</button>
                 </div>
             </div>
 
             <div class="buttons">
-                <div class="tool-heading">Mode</div>
-                <button class="rainbow-button">Rainbow Mode</button>
-                <button class="eraser-button">Eraser</button>
-                <button class="normal-button">Reset</button>
+                <div class="tool-heading">Modes</div>
+                <div class="rainbow-toggle">Rainbow Mode</div>
+                <label class="mode-toggle" id="rainbow-button">
+                    <input type="checkbox">
+                    <span class="mode-slider"></span>
+                </label>
+                <div class="opacity-toggle">Opacity Mode</div>
+                <label class="mode-toggle" id="opacity-button">
+                    <input type="checkbox">
+                    <span class="mode-slider"></span>
+                </label>
             </div>
 
             <div class="slidecontainer">
                 <div class="tool-heading">Sketch Size</div>
-                <div>This will erase the sketch!</div>
+                <div>Changing this will erase the sketch!</div>
                 <input type="range" min="1" max="64" value="32" class="slider" id="myRange">
                 <span id="gridSize"></span>
             </div>
+            <button class="reset-button" onClick="window.location.reload();">Reset All</button>
         </div>
 
         <div class="grid-container"></div>
