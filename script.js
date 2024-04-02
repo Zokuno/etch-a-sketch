@@ -5,15 +5,16 @@ let penColor = document.querySelector("#pen-color");
 let penDefault = document.querySelector(".pen-default");
 let fillGrid = document.querySelector("#fill-grid");
 let normalBtn = document.querySelector(".reset-button");
-let rainbowBtn = document.querySelector("#rainbow-button");
-let opacityBtn = document.querySelector("#opacity-button");
+let rainbowBtn = document.querySelector("#rainbow-checkbox");
+let opacityBtn = document.querySelector("#opacity-checkbox");
+let clickmodeBtn = document.querySelector("#clickmode-checkbox");
 let eraserBtn = document.querySelector(".eraser-button");
 let clearBtn = document.querySelector(".clear-button");
 let gridSizeSlider = document.getElementById("myRange");
 let gridSize = document.getElementById("gridSize");
 
 
-gridSize.innerHTML = `${gridSizeSlider.value} x ${gridSizeSlider.value} Grid`; // Display the default slider value
+gridSize.innerHTML = `${gridSizeSlider.value} x ${gridSizeSlider.value} Grid`; // Displays the default slider value
 
 // Updates the current slider value each time you drag the slider handle
 gridSizeSlider.oninput = function () {
@@ -40,7 +41,7 @@ function genDivs() {
             cell.style.backgroundColor = fillGrid.value;
             cell.style.display = "flex";
             cell.style.flex = "1";
-        
+
             cell.addEventListener("mouseover", handleMouseOver);
 
             row.appendChild(cell);
@@ -58,12 +59,18 @@ function handleMouseOver() {
         this.style.backgroundColor = rainbowMode();
     } else if (opacityBtn.classList.contains("active")) {
         this.style.backgroundColor = "green";
+    } else if (clickmodeBtn.classList.contains("active")) {
+        let cells = document.querySelectorAll(".gridsquare");
+        cells.forEach((cell) => {
+            cell.removeEventListener("mouseover", handleMouseOver);
+            cell.addEventListener("mousedown", handleMouseOver);
+        });;
     } else if (eraserBtn.classList.contains("active")) {
         this.style.backgroundColor = fillGrid.value;
     } else if (clearBtn.classList.contains("active")) {
         this.style.backgroundColor = penColor.value;
     } else {
-        this.style.backgroundColor = "black";
+        this.style.backgroundColor = penColor.value;
     }    
 };
 
@@ -85,7 +92,9 @@ penColor.addEventListener("click", () => {
     penColor.classList.add("active");
     fillGrid.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    rainbowBtn.checked = false;
     opacityBtn.classList.remove("active");
+    opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
 });
@@ -94,25 +103,48 @@ penDefault.addEventListener("click", () => {
     penColor.classList.add("active");
     fillGrid.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    rainbowBtn.checked = false;
     opacityBtn.classList.remove("active");
+    opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
     penColor.value = "#000000";
 });
 
-rainbowBtn.addEventListener("click", () => {
-    rainbowBtn.classList.add("active");
+rainbowBtn.addEventListener("change", () => {
+    if (rainbowBtn.checked) {
+        rainbowBtn.classList.add("active");
+     } else {
+        rainbowBtn.classList.remove("active");
+     }    
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
     opacityBtn.classList.remove("active");
+    opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
 });
 
 opacityBtn.addEventListener("click", () => {
-    opacityBtn.classList.add("active");
+    if (opacityBtn.checked) {
+        opacityBtn.classList.add("active");
+     } else {
+        opacityBtn.classList.remove("active");
+     }    
     rainbowBtn.classList.remove("active");
+    rainbowBtn.checked = false;
     penColor.classList.remove("active");
+    fillGrid.classList.remove("active");
+    eraserBtn.classList.remove("active");
+    clearBtn.classList.remove("active");
+});
+
+clickmodeBtn.addEventListener("click", () => {
+    if (clickmodeBtn.checked) {
+        clickmodeBtn.classList.add("active");
+     } else {
+        clickmodeBtn.classList.remove("active");
+     }    
     fillGrid.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
@@ -123,7 +155,9 @@ eraserBtn.addEventListener("click", () => {
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
     rainbowBtn.classList.remove("active");
+    rainbowBtn.checked = false;
     opacityBtn.classList.remove("active");
+    opacityBtn.checked = false;
     clearBtn.classList.remove("active");
 });
 
@@ -131,8 +165,6 @@ clearBtn.addEventListener("click", () => {
     clearBtn.classList.add("active");
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
-    rainbowBtn.classList.remove("active");
-    opacityBtn.classList.remove("active");
     eraserBtn.classList.remove("active");
     // Loops through all cells and set background color to fillGrid value
     let cells = document.querySelectorAll(".gridsquare");

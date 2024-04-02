@@ -46,7 +46,7 @@ main {
 .color-pickers {
   display: flex;
   flex-direction: column;
-  flex: 2;
+  flex: 1;
   width: 100%;
   border-bottom: solid;
   border-color: red;
