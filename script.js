@@ -42,8 +42,11 @@ function genDivs() {
             cell.style.display = "flex";
             cell.style.flex = "1";
 
-            cell.addEventListener("mouseover", handleMouseOver);
-
+            if (clickmodeBtn.checked) {
+                cell.addEventListener("mousedown", handleMouseDown);
+            }   else {
+                cell.addEventListener("mouseover", handleMouseOver);
+            };
             row.appendChild(cell);
         }
 
@@ -59,12 +62,6 @@ function handleMouseOver() {
         this.style.backgroundColor = rainbowMode();
     } else if (opacityBtn.classList.contains("active")) {
         this.style.backgroundColor = "green";
-    } else if (clickmodeBtn.classList.contains("active")) {
-        let cells = document.querySelectorAll(".gridsquare");
-        cells.forEach((cell) => {
-            cell.removeEventListener("mouseover", handleMouseOver);
-            cell.addEventListener("mousedown", handleMouseOver);
-        });;
     } else if (eraserBtn.classList.contains("active")) {
         this.style.backgroundColor = fillGrid.value;
     } else if (clearBtn.classList.contains("active")) {
@@ -72,6 +69,19 @@ function handleMouseOver() {
     } else {
         this.style.backgroundColor = penColor.value;
     }    
+};
+
+// Event listener function for "mousedown"
+function handleMouseDown() {
+    let cells = document.querySelectorAll(".gridsquare");
+    cells.forEach((cell) => {
+        cell.addEventListener("mousemove", handleMouseOver);
+    });
+    cells.forEach((cell) => {
+        cell.addEventListener("mouseup", () => {
+            cell.removeEventListener("mousemove", handleMouseOver);
+        });
+    });
 };
 
 // Returns random color using hexidecimals
@@ -140,11 +150,20 @@ opacityBtn.addEventListener("click", () => {
 });
 
 clickmodeBtn.addEventListener("click", () => {
+    let cells = document.querySelectorAll(".gridsquare");
     if (clickmodeBtn.checked) {
         clickmodeBtn.classList.add("active");
-     } else {
+        cells.forEach(cell => {
+            cell.removeEventListener("mouseover", handleMouseOver);
+            cell.addEventListener("mousedown", handleMouseDown);
+        });
+    } else {
         clickmodeBtn.classList.remove("active");
-     }    
+        cells.forEach(cell => {
+            cell.removeEventListener("mousedown", handleMouseDown);
+            cell.addEventListener("mouseover", handleMouseOver);
+        });
+    }    
     fillGrid.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
