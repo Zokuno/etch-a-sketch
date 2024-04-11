@@ -116,6 +116,11 @@ button {
     box-shadow: rgb(91, 252, 252) 5px 5px 5px;
 }
 
+.gridsquare {
+  /* opacity: var(--cell_opacity, 1); */
+  opacity: 1;
+}
+
 footer {
     display: flex;
     min-height: 45px;

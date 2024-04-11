@@ -2,7 +2,6 @@
 let gridCntr = document.querySelector(".grid-container");
 let gridSquare = document.querySelector(".gridsquare");
 let penColor = document.querySelector("#pen-color");
-let penDefault = document.querySelector(".pen-default");
 let fillGrid = document.querySelector("#fill-grid");
 let normalBtn = document.querySelector(".reset-button");
 let rainbowBtn = document.querySelector("#rainbow-checkbox");
@@ -61,7 +60,8 @@ function handleMouseOver() {
     } else if (rainbowBtn.classList.contains("active")) {
         this.style.backgroundColor = rainbowMode();
     } else if (opacityBtn.classList.contains("active")) {
-        this.style.backgroundColor = "green";
+        // this.style.backgroundColor = opacityMode();
+        opacityMode(this);
     } else if (eraserBtn.classList.contains("active")) {
         this.style.backgroundColor = fillGrid.value;
     } else if (clearBtn.classList.contains("active")) {
@@ -77,8 +77,9 @@ function handleMouseDown() {
     cells.forEach((cell) => {
         cell.addEventListener("mousemove", handleMouseOver);
     });
-    cells.forEach((cell) => {
-        cell.addEventListener("mouseup", () => {
+
+    document.addEventListener("mouseup", () => {
+        cells.forEach((cell) => {
             cell.removeEventListener("mousemove", handleMouseOver);
         });
     });
@@ -87,6 +88,18 @@ function handleMouseDown() {
 // Returns random color using hexidecimals
 function rainbowMode() {
     return '#' + Math.floor(Math.random()*16777215).toString(16);
+};
+
+
+function opacityMode(cell) {
+    // Sets cell opacity to 0.1, THIS NEEDS TO BE FIXED
+    cell.style.setProperty("opacity", "0.1");
+    // Get the current opacity of the cell
+    const currOpacity = parseFloat(window.getComputedStyle(cell).getPropertyValue("opacity"));
+    // Calculate the new opacity (increase by 0.1)
+    const opacity = Math.min(currOpacity + 0.1, 1);
+    // Set the new opacity to the cell
+    cell.style.setProperty("opacity", opacity);
 };
 
 // Sets background color for all divs in grid
@@ -107,18 +120,6 @@ penColor.addEventListener("click", () => {
     opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
-});
-
-penDefault.addEventListener("click", () => {
-    penColor.classList.add("active");
-    fillGrid.classList.remove("active");
-    rainbowBtn.classList.remove("active");
-    rainbowBtn.checked = false;
-    opacityBtn.classList.remove("active");
-    opacityBtn.checked = false;
-    eraserBtn.classList.remove("active");
-    clearBtn.classList.remove("active");
-    penColor.value = "#000000";
 });
 
 rainbowBtn.addEventListener("change", () => {
