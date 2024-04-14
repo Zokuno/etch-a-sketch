@@ -47,22 +47,25 @@ function genDivs() {
                 cell.addEventListener("mouseover", handleMouseOver);
             };
             row.appendChild(cell);
-        }
+        };
 
         gridCntr.appendChild(row);
-    }
+        gridCntr.style.backgroundColor = fillGrid.value;
+    };
 };
 
 // Event listener function for "mouseover"
 function handleMouseOver() {
       if (penColor.classList.contains("active")) {
+        this.style.opacity = "1";
         this.style.backgroundColor = penColor.value;
     } else if (rainbowBtn.classList.contains("active")) {
+        this.style.opacity = "1";
         this.style.backgroundColor = rainbowMode();
     } else if (opacityBtn.classList.contains("active")) {
-        // this.style.backgroundColor = opacityMode();
         opacityMode(this);
     } else if (eraserBtn.classList.contains("active")) {
+        this.style.opacity = "1"; 
         this.style.backgroundColor = fillGrid.value;
     } else if (clearBtn.classList.contains("active")) {
         this.style.backgroundColor = penColor.value;
@@ -90,23 +93,27 @@ function rainbowMode() {
     return '#' + Math.floor(Math.random()*16777215).toString(16);
 };
 
-
+// Sets cell opacity to 0.1 and adds 0.1 on mouseover
 function opacityMode(cell) {
-    // Sets cell opacity to 0.1, THIS NEEDS TO BE FIXED
-    cell.style.setProperty("opacity", "0.1");
-    // Get the current opacity of the cell
-    const currOpacity = parseFloat(window.getComputedStyle(cell).getPropertyValue("opacity"));
-    // Calculate the new opacity (increase by 0.1)
-    const opacity = Math.min(currOpacity + 0.1, 1);
-    // Set the new opacity to the cell
-    cell.style.setProperty("opacity", opacity);
+    cell.style.backgroundColor = penColor.value;
+    let currOpacity = parseFloat(window.getComputedStyle(cell).getPropertyValue("opacity"));
+    if (currOpacity === 1 && !cell.classList.contains("active")) {
+        cell.style.opacity = "0.1";
+        cell.classList.add("active");
+    } else {
+        let newOpacity = Math.min(currOpacity + 0.1, 1);
+        cell.style.opacity = newOpacity;
+    };
 };
 
 // Sets background color for all divs in grid
 fillGrid.addEventListener("input", () => {
     let cells = document.querySelectorAll(".gridsquare");
         cells.forEach((cell) => {
+            cell.style.opacity = "1";
             cell.style.backgroundColor = fillGrid.value;
+            gridCntr.style.backgroundColor = fillGrid.value;
+            cell.classList.remove("active");
     });
 });
 
@@ -120,6 +127,10 @@ penColor.addEventListener("click", () => {
     opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
+    let cells = document.querySelectorAll(".gridsquare");
+    cells.forEach((cell) => {
+        cell.classList.remove("active");
+    });
 });
 
 rainbowBtn.addEventListener("change", () => {
@@ -134,17 +145,26 @@ rainbowBtn.addEventListener("change", () => {
     opacityBtn.checked = false;
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
+    let cells = document.querySelectorAll(".gridsquare");
+    cells.forEach((cell) => {
+        cell.classList.remove("active");
+    });    
 });
 
 opacityBtn.addEventListener("click", () => {
     if (opacityBtn.checked) {
         opacityBtn.classList.add("active");
+        penColor.classList.remove("active");
      } else {
         opacityBtn.classList.remove("active");
+        let cells = document.querySelectorAll(".gridsquare");
+        cells.forEach((cell) => {
+            cell.classList.remove("active");
+            penColor.classList.add("active");
+        });
      }    
     rainbowBtn.classList.remove("active");
     rainbowBtn.checked = false;
-    penColor.classList.remove("active");
     fillGrid.classList.remove("active");
     eraserBtn.classList.remove("active");
     clearBtn.classList.remove("active");
@@ -179,6 +199,10 @@ eraserBtn.addEventListener("click", () => {
     opacityBtn.classList.remove("active");
     opacityBtn.checked = false;
     clearBtn.classList.remove("active");
+    let cells = document.querySelectorAll(".gridsquare");
+    cells.forEach((cell) => {
+        cell.classList.remove("active");
+    });
 });
 
 clearBtn.addEventListener("click", () => {
@@ -186,14 +210,16 @@ clearBtn.addEventListener("click", () => {
     penColor.classList.remove("active");
     fillGrid.classList.remove("active");
     eraserBtn.classList.remove("active");
-    // Loops through all cells and set background color to fillGrid value
     let cells = document.querySelectorAll(".gridsquare");
     cells.forEach((cell) => {
+        cell.style.opacity = "1";
         cell.style.backgroundColor = fillGrid.value;
+        gridCntr.style.backgroundColor = fillGrid.value;
+        cell.classList.remove("active");
     });
 });
 
-// Initial generation of divs
+// Initial generation of grid of divs
 genDivs();
 
 
